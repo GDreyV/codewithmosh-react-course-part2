@@ -7,12 +7,18 @@ export interface Post {
     userId: number;
   }
 
-export default function usePosts() {
-    const fetchPosts = () => fetch("https://jsonplaceholder.typicode.com/posts")
+export default function usePosts(userId?: number) {
+    const queryParam = new URLSearchParams();
+    if (userId) {
+        queryParam.append("userId", userId.toString());
+    }
+    const fetchPosts = () => fetch(`https://jsonplaceholder.typicode.com/posts?${queryParam.toString()}`)
         .then<Post[]>(response => response.json());
 
     const { data: posts, error, isLoading } = useQuery<Post[], Error>({
-        queryKey: ["posts"],
+        queryKey: userId
+            ? ["users", userId, "posts"]
+            : [ "posts" ],
         queryFn: fetchPosts
     })
 
