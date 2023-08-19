@@ -8,7 +8,9 @@ interface Post {
 }
 
 const PostList = () => {
-  const { posts, error } = usePosts();
+  const { posts, error, isLoading } = usePosts();
+
+  if (isLoading) return <p>Loading...</p>;
 
   if (error) return <p>{error.message}</p>;
 
