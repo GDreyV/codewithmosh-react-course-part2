@@ -1,14 +1,14 @@
 import { useState } from "react";
 import usePosts from "./hooks/usePosts";
+import usePostsInfinite from "./hooks/usePostsInifinite";
+import React from "react";
 
 const pageSize = 10;
 
 const PostList = () => {
   const [ userId, setUserId ] = useState<number>();
-  const [page, setPage] = useState(1);
-	const { posts, error, isLoading } = usePosts({
+	const { posts, error, isLoading, fetchNextPage, isFetchingNextPage } = usePostsInfinite({
     userId,
-    page,
     pageSize
   });
 
@@ -27,19 +27,20 @@ const PostList = () => {
         <option value="3">User 3</option>
       </select>
 			<ul className="list-group">
-				{posts?.map((post) => (
-					<li key={post.id} className="list-group-item">
-						{post.title}
-					</li>
-				))}
+				{posts?.pages.map((page, ix) => <React.Fragment key={ix}>
+          {page.map((post) => (
+            <li key={post.id} className="list-group-item">
+              {post.title}
+            </li>))}
+        </React.Fragment> 
+        )}
 			</ul>
       <div className="my-2">
         <button className="btn btn-secondary"
-          disabled={page === 1}
-          onClick={e => setPage(page - 1)}>Previous</button>
-        <span className="mx-2">{ page }</span>
-        <button className="btn btn-primary"
-          onClick={e => setPage(page + 1)}>Next</button>
+          disabled={isFetchingNextPage}
+          onClick={() => fetchNextPage()}>
+            {isFetchingNextPage ? <>Loading&hellip;</> : "Load more" }
+          </button>
       </div>
 		</>
 	);
