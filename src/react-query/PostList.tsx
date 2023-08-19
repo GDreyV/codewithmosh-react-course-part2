@@ -1,16 +1,16 @@
 import { useState } from "react";
 import usePosts from "./hooks/usePosts";
 
-interface Post {
-	id: number;
-	title: string;
-	body: string;
-	userId: number;
-}
+const pageSize = 10;
 
 const PostList = () => {
   const [ userId, setUserId ] = useState<number>();
-	const { posts, error, isLoading } = usePosts(userId);
+  const [page, setPage] = useState(1);
+	const { posts, error, isLoading } = usePosts({
+    userId,
+    page,
+    pageSize
+  });
 
 	if (isLoading) return <p>Loading...</p>;
 
@@ -33,6 +33,14 @@ const PostList = () => {
 					</li>
 				))}
 			</ul>
+      <div className="my-2">
+        <button className="btn btn-secondary"
+          disabled={page === 1}
+          onClick={e => setPage(page - 1)}>Previous</button>
+        <span className="mx-2">{ page }</span>
+        <button className="btn btn-primary"
+          onClick={e => setPage(page + 1)}>Next</button>
+      </div>
 		</>
 	);
 };
