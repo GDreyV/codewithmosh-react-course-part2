@@ -15,7 +15,8 @@ const useTodos = () => {
 
     const { data: todos, error, isLoading } = useQuery<Todo[], Error>({
         queryKey: ["todos"],
-        queryFn: fetchTodos
+        queryFn: fetchTodos,
+        staleTime: 10_000, // 10 secs
     })
 
     return { todos, error, isLoading };
