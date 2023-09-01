@@ -3,7 +3,7 @@ export interface ITask {
     title: string;
 }
 
-type Action = IAddTaskAction | IDeleteTaskAction;
+export type TaskAction = IAddTaskAction | IDeleteTaskAction;
 
 interface IAddTaskAction {
     type: "ADD";
@@ -16,7 +16,7 @@ interface IDeleteTaskAction {
 
 }
 
-const tasksReducer = (state: ITask[], action: Action): ITask[] => {
+const tasksReducer = (state: ITask[], action: TaskAction): ITask[] => {
     switch (action.type) {
         case "ADD":
             return [...state, action.task];

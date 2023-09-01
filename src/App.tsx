@@ -1,16 +1,25 @@
 import './App.css';
-import PostList from './react-query/PostList';
 import TodoForm from './react-query/TodoForm';
 import TodoList from './react-query/TodoList';
-import Counter from './state-management/Counter';
+import AuthProvider from './state-management/AuthProvider';
+import HomePage from './state-management/HomePage';
 import LoginStatus from './state-management/LoginStatus';
-import TaskList from './state-management/TaskList';
+import NavBar from './state-management/NavBar';
+import TasksProvider from './state-management/TasksProvider';
 
 function App() {
   return (
     <>
+      <TasksProvider>
+        <AuthProvider>
+          <NavBar />
+          <HomePage />
+        </AuthProvider>
+      </TasksProvider>
+
+
       <LoginStatus />
-      <TaskList />
+
       <hr/>
       <TodoForm />
       <TodoList />

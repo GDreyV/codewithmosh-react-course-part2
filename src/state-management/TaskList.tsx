@@ -1,13 +1,15 @@
-import { useReducer, useState } from 'react';
-import tasksReducer, { ITask } from './reducers/tasksReducer';
+import useAuth from './hooks/useAuth';
+import useTasks from './hooks/useTasks';
 
 
 
 const TaskList = () => {
-  const [tasks, dispatch] = useReducer(tasksReducer, []);
+  const { tasks, dispatch } = useTasks();
+  const { user }  = useAuth();
 
   return (
     <>
+      <p>{ user }</p>
       <button
         onClick={() =>
           dispatch({ type: "ADD", task: { id: Date.now(), title: 'Task ' + Date.now() } })
@@ -17,7 +19,7 @@ const TaskList = () => {
         Add Task
       </button>
       <ul className="list-group">
-        {tasks.map((task) => (
+        {tasks?.map((task) => (
           <li
             key={task.id}
             className="list-group-item d-flex justify-content-between align-items-center"
