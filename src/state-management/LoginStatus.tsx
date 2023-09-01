@@ -1,24 +1,21 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
+import userReducer from "./reducers/authReducer";
 
 const LoginStatus = () => {
-  const [user, setUser] = useState('');
+  const [user, dispatch] = useReducer(userReducer, "");
 
   if (user)
     return (
       <>
         <div>
           <span className="mx-2">{user}</span>
-          <a onClick={() => setUser('')} href="#">
-            Logout
-          </a>
+          <button className="btn btn-outline-secondary" onClick={() => dispatch({ type: "LOGOUT" })}>Logout</button>
         </div>
       </>
     );
   return (
     <div>
-      <a onClick={() => setUser('mosh.hamedani')} href="#">
-        Login
-      </a>
+      <button className="btn btn-primary" onClick={() => dispatch({ type: "LOGIN", user: "andrew" })}>Login</button>
     </div>
   );
 };
