@@ -1,5 +1,5 @@
-import useAuth from './hooks/useAuth';
-import useTasks from './hooks/useTasks';
+import useAuth from '../auth/useAuth';
+import useTasks from './useTasks';
 
 
 

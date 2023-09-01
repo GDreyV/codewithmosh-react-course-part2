@@ -1,11 +1,11 @@
 import './App.css';
 import TodoForm from './react-query/TodoForm';
 import TodoList from './react-query/TodoList';
-import AuthProvider from './state-management/AuthProvider';
+import AuthProvider from './state-management/auth/AuthProvider';
 import HomePage from './state-management/HomePage';
 import LoginStatus from './state-management/LoginStatus';
 import NavBar from './state-management/NavBar';
-import TasksProvider from './state-management/TasksProvider';
+import {TasksProvider} from './state-management/tasks';
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         </AuthProvider>
       </TasksProvider>
 
-
+      <hr/>
       <LoginStatus />
 
       <hr/>
