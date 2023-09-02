@@ -1,5 +1,5 @@
 import { ReactNode, useReducer } from 'react'
-import TasksContext from './taskContext';
+import TasksContext from './TaskContext';
 
 export interface ITask {
     id: number;
